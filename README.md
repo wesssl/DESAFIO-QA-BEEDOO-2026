@@ -98,6 +98,8 @@ Com todas as features descobertas nessa visão inicial, pude tirar conclusões s
 * A aplicação opera como um gerenciador de catálogo simples (CRUD)
 * Formulário com 09 campos disponíveis. Sendo 01 com valores estáticos ('Tipo de Curso').
 * Os elementos do formulário possuem IDs que parecem ser gerados dinamicamente, o que representa um desafio para a estabilidade e consistência de scripts de automação. Apesar da possibilidade de usar o "arial-label" como seletor, o ID seria a forma mais otimizada, o que requeriria mais confiabilidade dele.
+* O campo "Url da imagem de capa" e "Link de inscrição" aceitam qualquer texto. Isso talvez permita que um usuário insira links para sites de phishing ou execute o carregamento de recursos externos não autorizados ou mesmo mídias que causem problemáticas.
+* Outros campos talvez permitam injeção de Script, também por aceitarem qualquer texto. 
 * Na exclusão, existe uma desconexão entre a camada de apresentação e a persistência de dados, pois o feedback visual de sucesso não reflete a alteração real nos dados.
 * Visualização dos cursos disponíveis através da URL base.
 * Não há feature de busca de cursos diponíveis.
