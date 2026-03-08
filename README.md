@@ -95,7 +95,7 @@ A partir desse ponto, ao escolher o tipo de curso do dropdown, aparece um novo c
 |:--:|:--:|
 | Link de Inscrição | https://www.google.com/ |
 
-**Resultado:**
+Resultado:
 * PopIn verde com a mensagem 'Curso cadastrado com sucesso!' na tela.
 * Redirecionado para a Home.
 * Item de teste adicionado a Lista de Cursos no corpo da página como um card.
@@ -103,7 +103,7 @@ A partir desse ponto, ao escolher o tipo de curso do dropdown, aparece um novo c
 
 Para arrematar esse teste exploratório, há a necessidade de testar o item criado, se ele pode ser acessado com suas informações integrais em uma nova página e se o 'Excluir' funciona como esperado.
 
-**Resultado:**
+Resultado:
 * PopIn verde com a mensagem 'Curso excluído com sucesso!'
 * Sem Redirecionamento.
 * Item não é excluído. Mesmo com atualização da página.
@@ -112,7 +112,7 @@ Para arrematar esse teste exploratório, há a necessidade de testar o item cria
 
 Com todas as features descobertas nessa visão inicial, pude tirar conclusões sobre as funcionalidades atuais da aplicação e entender o que pode ser problemático para a sua funcionalidade e a sua integridade. 
 
-`Conclusões:`
+**Conclusões:**
 * A aplicação opera como um gerenciador de catálogo simples (CRUD) para cadastro de cursos.
 * Formulário com 09 campos disponíveis. Sendo 01 com valores estáticos ('Tipo de Curso').
 * Os elementos do formulário possuem IDs que parecem ser gerados dinamicamente, o que representa um desafio para a estabilidade e consistência de scripts de automação. Apesar da possibilidade de usar o "aria-label" como seletor, o ID seria a forma mais otimizada e confiável se bem construído.
