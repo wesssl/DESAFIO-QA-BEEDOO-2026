@@ -4,16 +4,34 @@ Desafio para a vaga de Analista de Qualidade da Beedo.
 ## INFORMAÇÕES DO CANDIDATO
 
 * Nome: Wesley Lima
-* Ambiente de teste: Google Chrome
 
-## Estratégia de Teste
+## Resumo
 
 Para este desafio utilizei as seguintes abordagens:
 
-- Testes exploratórios
-- Análise estrutural da interface
-- Validação de fluxos críticos
-- Identificação de riscos
+* Testes exploratórios.
+* Análise estrutural da interface.
+* Validação de fluxos críticos.
+* Identificação e Matriz de riscos.
+* Testes Manuais.
+
+Escopo:
+* Testes funcionais baseados em convenções de mercado e suposição de requisitos.
+* Testes de fumaça superficiais.
+* Testes de UI/UX.
+* Validação de vulnerabilidades básicas.
+* Verificação de persistência via Local Storage.
+
+Não-Escopo:
+* Testes de carga e performance.
+* Testes de Segurança avançados.
+* Automação de testes.
+* Testes de API.
+
+Resultado:
+* **26 Casos de Teste** mapeados e documentados.
+* **xx Bugs Críticos** reportados.
+
 
 ## 1. Análise da aplicação
 
@@ -104,7 +122,7 @@ Com todas as features descobertas nessa visão inicial, pude tirar conclusões s
 * Visualização dos cursos disponíveis através da URL base.
 * Não há feature de busca de cursos diponíveis.
 
-Há também algumas perguntas sobre o produto que precisariam ser informadas como:
+Há também algumas perguntas sobre o produto que precisariam ser respondidas como:
 * Um curso pode ter data de início no passado?
 * Existe limite de vagas?
 * Cursos podem ser duplicados?
@@ -115,7 +133,7 @@ Devo acrescentar que uma análise dos requisitos, aliada aos testes exploratóri
 
 Posso agora iniciar uma análise de fluxos e riscos, partindo das features já desenvolvidas.
 
-## 2. Análise de Fluxos, Riscos e Prioridade
+## 2. Análise de Fluxos, Riscos e Priorização
 
 ### 2.1 Fluxos principais
 
@@ -170,7 +188,7 @@ Com a o fluxo definido, posso trabalhar em uma matriz de risco e chegar a uma pr
 Com base no Fluxo e Matriz de Riscos, a estratégia de execução dos testes será dividida em três níveis de prioridade (P1, P2 e P3).
 
 #### P1: Crítico
-Foco em funcionalidades que impedem o uso básico ou comprometem a integridade dos dados.
+Foco em funcionalidades que impedem o uso básico, ou comprometem a integridade dos dados, ou provocam vulnerabilidades.
 * **Integridade do Cadastro:** Testar a obrigatoriedade de campos e a persistência real dos dados.
 * **Vulnerabilidades Críticas:** Validar se o sistema permite injeção de scripts (XSS) que possam comprometer a segurança da aplicação.
 * **Exclusão** Validar a correção do fluxo de delegação, garantindo que o dado seja removido da base e da interface.
@@ -194,18 +212,39 @@ Para os casos de teste, defini uma estrutura em tabela com:
 | Código | Descrição | Passos | Resposta Esperada | Massa de Dados | Automação |
 |:---:|:---|:---|:---|:---|:---:|
 |Código do caso | Conteúdo explicativo do teste | Passos a serem testados | Qual a resposta esperada da aplicação | Qual a massa de dados utilizada para o teste. | Se o teste é passível de automação |
+---
 
 [Listagem dos Casos de Teste](CT/casos-de-teste.md)
 
-Como já foram discutidos tanto fluxos, quanto os riscos e a prioridade, irei dividir os casos de teste, criados para essa iteração, por prioridade. Essa priorização será usada para os Testes Manuais e para a automação.
+Como já foram discutidos tanto fluxos, quanto os riscos e a prioridade, irei dividir os casos de teste (criados para essa iteração) por prioridade. Essa priorização será usada para os Testes Manuais e para a automação.
 
 [Lista de Casos por Prioridade](CT/prioridades-CT.md)
 
 
 ## 4. Testes Manuais
 
+Os testes manuais foram feitos no seguinte ambiente:
+* **Browser:** Google Chrome (Version 142.0.7444.175 (Official Build) (64-bit))
+* **Dispositivo:** Desktop
+* **Resolução de Tela:** 1920x1080
+* **Persistência:** Testes realizados com limpeza de Local Storage.
+* **URL da Aplicação:** https://creative-sherbet-a51eac.netlify.app/
+
+[LINK DA PLANILHA](https://docs.google.com/spreadsheets/d/1oyfH7ZFJxfKlOmRqnoUtuw2pmWaIfQirMqN9PRwu20A/edit?usp=sharing)
+
+
 ## 5. Report de Bugs
 
-## 6. Testes Automatizados.
+Para o report de bugs, proponho o seguinte modelo a ser usado:
 
-## 7. Conclusão
+| Código do Bug | Código do Caso de Teste | Feature | Data e Hora do Teste | Descrição | Passos | Resposta Esperada | Resposta Recebida | Comprovação |
+|:---:|:---|:---|:---|:---|:---|:---|:---|:---:|
+| BUG-001 | CT-01| Cadastro | 08/03/2026 17:00 | Descrição do Bug | 1. Abrir; 2. Confirmar | Feedback Esperado | Feedback Recebido | (link da screenshot) |
+
+[LINK DO REPORT](https://docs.google.com/spreadsheets/d/1AGsVZkELMJ_DJ7rfDD7Gxwtd_ejlPgp2G1gjNzOqYXI/edit?usp=sharing)
+
+## 6. Conclusão
+
+Depois de rodar os testes, o diagnóstico é: a aplicação é visualmente organizada, mas tecnicamente frágil. O principal problema é a falta de confiança na persistência dos dados e na segurança da aplicação.
+
+O desafio foi muito divertido e me fez percorrer todo o processo de análise e estruturação de um plano de testes. Fico muito grato pela oportunidade!

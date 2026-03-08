@@ -28,7 +28,7 @@ Foco no comportamento esperado do sistema e experiência do usuário.
 | **CT-24** | Formatação de Endereço | 1. Inserir apenas números ou símbolos no campo 'Endereço'. | O sistema deve validar se o endereço possui um formato mínimo aceitável. | "12345678" | Sim |
 | **CT-26** | Espaços em Branco (Trim) | 1. No campo 'Nome', inserir apenas espaços ("    "). | O sistema deve considerar o campo como vazio. | "    " | Sim |
 
-## 3.3 Prioridade P3: Casos de Borda e Resiliência de Interface
+## 3.4 Prioridade P3: Casos de Borda e Resiliência de Interface
 Foco em polimento, limites extremos e estabilidade técnica.
 
 | Código | Descrição | Passos | Resposta Esperada | Massa de Dados | Automação |
