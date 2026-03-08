@@ -71,7 +71,7 @@ Para esse teste, defini uma timebox de 10 minutos.
 | Número de vagas | 40 |
 | Tipo de curso | Online |
 
-A partir desse ponto, ao escolher o tipo de curso do dropdown, aparece um novo campo a ser preenchido chamado: 'Link de Inscrição' no caso de Online, 'Endereço' no caso de Presencial, os dois do tipo Text.
+A partir desse ponto, ao escolher o tipo de curso do dropdown, aparece um novo campo a ser preenchido chamado: 'Link de Inscrição' no caso de `Online`, 'Endereço' no caso de `Presencial`, os dois do tipo Text.
 
 | Campo | Valor Inserido |
 |:--:|:--:|
@@ -80,7 +80,7 @@ A partir desse ponto, ao escolher o tipo de curso do dropdown, aparece um novo c
 **Resultado:**
 * PopIn verde com a mensagem 'Curso cadastrado com sucesso!' na tela.
 * Redirecionado para a Home.
-* Item de teste adicionado a Lista de Cursos no corpo da página.
+* Item de teste adicionado a Lista de Cursos no corpo da página como um card.
 * Item tem botão 'Excluir Curso'.
 
 Para arrematar esse teste exploratório, há a necessidade de testar o item criado, se ele pode ser acessado com suas informações integrais em uma nova página e se o 'Excluir' funciona como esperado.
@@ -97,14 +97,21 @@ Com todas as features descobertas nessa visão inicial, pude tirar conclusões s
 `Conclusões:`
 * A aplicação opera como um gerenciador de catálogo simples (CRUD) para cadastro de cursos.
 * Formulário com 09 campos disponíveis. Sendo 01 com valores estáticos ('Tipo de Curso').
-* Os elementos do formulário possuem IDs que parecem ser gerados dinamicamente, o que representa um desafio para a estabilidade e consistência de scripts de automação. Apesar da possibilidade de usar o "arial-label" como seletor, o ID seria a forma mais otimizada e confiável se bem construído.
+* Os elementos do formulário possuem IDs que parecem ser gerados dinamicamente, o que representa um desafio para a estabilidade e consistência de scripts de automação. Apesar da possibilidade de usar o "aria-label" como seletor, o ID seria a forma mais otimizada e confiável se bem construído.
 * O campo "Url da imagem de capa" e "Link de inscrição" aceitam qualquer texto. Isso talvez permita que um usuário insira links para sites de phishing ou execute o carregamento de recursos externos não autorizados ou mesmo mídias que causem problemáticas.
 * Outros campos talvez permitam injeção de Script, também por aceitarem qualquer texto. 
 * Na exclusão, existe uma desconexão entre a camada de apresentação e a persistência de dados, pois o feedback visual de sucesso não reflete a alteração real nos dados.
 * Visualização dos cursos disponíveis através da URL base.
 * Não há feature de busca de cursos diponíveis.
 
-Devo acrescentar que uma análise dos requisitos, aliada aos testes exploratórios, seria o ideal para um melhor entendimento e conclusões mais assertivas das features. Porém, não há material informativo dos requisitos.
+Há também algumas perguntas sobre o produto que precisariam ser informadas como:
+* Um curso pode ter data de início no passado?
+* Existe limite de vagas?
+* Cursos podem ser duplicados?
+* Cursos podem ser editados após cadastro?
+* A exclusão de cursos deveria exigir confirmação do usuário?
+
+Devo acrescentar que uma análise dos requisitos, aliada aos testes exploratórios, seria o ideal para um melhor entendimento e conclusões mais assertivas das features. Porém, não há material informativo dos requisitos, então grande parte desse projeto de teste usará de suposições e convenções para o desenvolvimento dessa análise e dos testes.
 
 Posso agora iniciar uma análise de fluxos e riscos, partindo das features já desenvolvidas.
 
@@ -177,8 +184,28 @@ Foco em garantir que a aplicação se comporte conforme o esperado em cenários 
 #### P3: Média/Baixa
 Foco em refinamentos e facilitação da manutenção futura.
 * **Validação Numérica:** Testar limites de campos como "Número de Vagas" (negativos/decimais).
-* **Testabilidade (Automação):** Propor a migração de IDs dinâmicos para `data-testid` para viabilizar automação estável.
+* **Testabilidade (Automação):** Propor a migração de IDs dinâmicos para 'data-testid' para viabilizar automação estável.
 * **Filtros e Busca:** Documentar a necessidade como item de backlog para futura escalabilidade.
 
 ## 3. Casos de Teste
 
+Para os casos de teste, defini uma estrutura em tabela com:
+
+| Código | Descrição | Passos | Resposta Esperada | Massa de Dados | Automação |
+|:---:|:---|:---|:---|:---|:---:|
+|Código do caso | Conteúdo explicativo do teste | Passos a serem testados | Qual a resposta esperada da aplicação | Qual a massa de dados utilizada para o teste. | Se o teste é passível de automação |
+
+[Listagem dos Casos de Teste](CT/casos-de-teste.md)
+
+Como já foram discutidos tanto fluxos, quanto os riscos e a prioridade, irei dividir os casos de teste, criados para essa iteração, por prioridade. Essa priorização será usada para os Testes Manuais e para a automação.
+
+[Lista de Casos por Prioridade](CT/prioridades-CT.md)
+
+
+## 4. Testes Manuais
+
+## 5. Report de Bugs
+
+## 6. Testes Automatizados.
+
+## 7. Conclusão
