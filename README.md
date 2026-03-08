@@ -71,7 +71,7 @@ Para esse teste, defini uma timebox de 10 minutos.
 | Número de vagas | 40 |
 | Tipo de curso | Online |
 
-A partir desse ponto, ao escolher o tipo de curso do dropdown, aparece um novo campo a ser preenchido, chamado: 'Link de Inscrição' no caso de Online, 'Endereço' no caso de Presencial, os dois do tipo Text.
+A partir desse ponto, ao escolher o tipo de curso do dropdown, aparece um novo campo a ser preenchido chamado: 'Link de Inscrição' no caso de Online, 'Endereço' no caso de Presencial, os dois do tipo Text.
 
 | Campo | Valor Inserido |
 |:--:|:--:|
@@ -95,20 +95,20 @@ Para arrematar esse teste exploratório, há a necessidade de testar o item cria
 Com todas as features descobertas nessa visão inicial, pude tirar conclusões sobre as funcionalidades atuais da aplicação e entender o que pode ser problemático para a sua funcionalidade e a sua integridade. 
 
 `Conclusões:`
-* A aplicação opera como um gerenciador de catálogo simples (CRUD)
+* A aplicação opera como um gerenciador de catálogo simples (CRUD) para cadastro de cursos.
 * Formulário com 09 campos disponíveis. Sendo 01 com valores estáticos ('Tipo de Curso').
-* Os elementos do formulário possuem IDs que parecem ser gerados dinamicamente, o que representa um desafio para a estabilidade e consistência de scripts de automação. Apesar da possibilidade de usar o "arial-label" como seletor, o ID seria a forma mais otimizada, o que requeriria mais confiabilidade dele.
+* Os elementos do formulário possuem IDs que parecem ser gerados dinamicamente, o que representa um desafio para a estabilidade e consistência de scripts de automação. Apesar da possibilidade de usar o "arial-label" como seletor, o ID seria a forma mais otimizada e confiável se bem construído.
 * O campo "Url da imagem de capa" e "Link de inscrição" aceitam qualquer texto. Isso talvez permita que um usuário insira links para sites de phishing ou execute o carregamento de recursos externos não autorizados ou mesmo mídias que causem problemáticas.
 * Outros campos talvez permitam injeção de Script, também por aceitarem qualquer texto. 
 * Na exclusão, existe uma desconexão entre a camada de apresentação e a persistência de dados, pois o feedback visual de sucesso não reflete a alteração real nos dados.
 * Visualização dos cursos disponíveis através da URL base.
 * Não há feature de busca de cursos diponíveis.
 
-Devo acrescentar que uma análise dos requisitos aliada aos testes exploratórios, seria o ideal para um melhor entendimento e conclusões mais assertivas das features. Porém, não há material informativo dos requisitos.
+Devo acrescentar que uma análise dos requisitos, aliada aos testes exploratórios, seria o ideal para um melhor entendimento e conclusões mais assertivas das features. Porém, não há material informativo dos requisitos.
 
 Posso agora iniciar uma análise de fluxos e riscos, partindo das features já desenvolvidas.
 
-## 2. Análise de Fluxos e Riscos
+## 2. Análise de Fluxos, Riscos e Prioridade
 
 ### 2.1 Fluxos principais
 
@@ -123,11 +123,62 @@ O único fluxo disponível da aplicação é o de criação, visualização e ex
 * **Visualizar Cursos**
     1. Ao criar um novo curso, redirecionar para a URL base.
     2. Visualizar a lista de cursos cadastrados.
-    3.
+    3. Expandir card da lista de cursos para ver mais informações.
 
 * **Exclusão de Cursos**
     1. A partir da URL Base, clicar no botão 'EXCLUIR CURSO'
     2. Receber feedback de confirmação de exclusão.
 
+Então como provável fluxo temos: `Criar Novo Curso -> Visualizar Cursos -> Excluir Curso`.
+
 ### 2.2 Matriz de Riscos
+
+Com a o fluxo definido, posso trabalhar em uma matriz de risco e chegar a uma priorização a partir da severidade das prováveis falhas.
+
+#### Legenda da Escala:
+* **Impacto:** O nível de dano que o risco causa à funcionalidade ou ao negócio (1 a 5).
+* **Probabilidade:** A chance de o risco se concretizar (1 a 5). No caso da exclusão e automação, a probabilidade é 5 pois já foram confirmados na análise exploratória.
+* **Severidade:** A prioridade de atenção/correção sugerida pelo QA (Impacto * Probabilidade).
+
+#### Matriz
+
+| Funcionalidade | Cenário de Risco | Impacto | Probabilidade | Severidade |
+|:---:|:---:|:---:|:---:|:---:|
+| **Cadastro** | Inconsistência temporal (Data de Fim < Data de Início). | 4 | 4 | 16 |
+| **Cadastro** | Permitir o envio do formulário com campos essenciais vazios. | 5 | 3 | 15 |
+| **Cadastro** | Vulnerabilidade a XSS e Phishing via campos de texto e URL. | 5 | 3 | 15 |
+| **Cadastro** | Campo URL da Imagem aceitar links que não sejam de mídia ou URLs quebradas. | 3 | 4 | 12 |
+| **Cadastro** | Campo Número de Vagas aceitar valores negativos, decimais ou zero. | 3 | 3 | 9 |
+| **Cadastro** | Permitir o cadastro de cursos com Data de Início em data retroativa. | 3 | 3 | 9 |
+| **Cadastro** | Falha de persistência ou erro de redirecionamento no salvamento. | 4 | 2 | 8 |
+| **Cadastro** | Falta de máscara/validação para valores numéricos negativos. | 2 | 3 | 6 |
+| **Visualizar** | Incapacidade de visualizar a descrição completa ou editar informações. | 3 | 4 | 12 |
+| **Visualizar** | Descrições ou nomes excessivamente longos que quebram o layout (UI). | 2 | 4 | 8 |
+| **Visualizar** | Dificuldade de localizar cursos devido à ausência de filtros e busca. | 2 | 4 | 8 |
+| **Excluir** | **Confirmado:** Falha de persistência: confirma exclusão, mantendo o dado na lista. | 5 | 4 | 20 |
+| **Geral / Técnico** | IDs dinâmicos que impedem a estabilidade de scripts de teste. | 2 | 5 | 10 |
+
+### 2.3 Priorização de Teste
+
+Com base no Fluxo e Matriz de Riscos, a estratégia de execução dos testes será dividida em três níveis de prioridade (P1, P2 e P3).
+
+#### P1: Crítico
+Foco em funcionalidades que impedem o uso básico ou comprometem a integridade dos dados.
+* **Integridade do Cadastro:** Testar a obrigatoriedade de campos e a persistência real dos dados.
+* **Vulnerabilidades Críticas:** Validar se o sistema permite injeção de scripts (XSS) que possam comprometer a segurança da aplicação.
+* **Exclusão** Validar a correção do fluxo de delegação, garantindo que o dado seja removido da base e da interface.
+
+#### P2: Alta
+Foco em garantir que a aplicação se comporte conforme o esperado em cenários comuns.
+* **Consistência de Datas:** Validar as travas de "Data de Fim < Data de Início".
+* **Sanitização de URLs:** Testar o comportamento do sistema com links de imagem e inscrição inválidos.
+* **UX de Visualização:** Validar como o sistema lida com textos longos que podem quebrar o layout da Home.
+
+#### P3: Média/Baixa
+Foco em refinamentos e facilitação da manutenção futura.
+* **Validação Numérica:** Testar limites de campos como "Número de Vagas" (negativos/decimais).
+* **Testabilidade (Automação):** Propor a migração de IDs dinâmicos para `data-testid` para viabilizar automação estável.
+* **Filtros e Busca:** Documentar a necessidade como item de backlog para futura escalabilidade.
+
+## 3. Casos de Teste
 
